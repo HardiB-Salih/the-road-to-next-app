@@ -34,3 +34,79 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+```
+
+```
+
+## Setup: Auto Import Sorting + ESLint Fix + Prettier + Auto Save
+
+[simple-import-sort configuration Doc.](https://github.com/lydell/eslint-plugin-simple-import-sort)
+
+### 1. Install simple-import-sort
+
+```bash
+bun add -d eslint-plugin-simple-import-sort
+```
+
+### 2. Add simple-import-sort to eslint.config.mjs
+
+```ts
+import { defineConfig, globalIgnores } from "eslint/config";
+import nextVitals from "eslint-config-next/core-web-vitals";
+import nextTs from "eslint-config-next/typescript";
+import pluginSimpleImportSort from "eslint-plugin-simple-import-sort";
+
+export default defineConfig([
+  ...nextVitals,
+  ...nextTs,
+
+  // simple-import-sort
+  {
+    plugins: {
+      "simple-import-sort": pluginSimpleImportSort,
+    },
+    rules: {
+      "simple-import-sort/imports": [
+        "error",
+        {
+          groups: [["^\\u0000", "^@?\\w", "^[^.]", "^\\."]],
+        },
+      ],
+      "simple-import-sort/exports": "error",
+    },
+    languageOptions: {
+      parserOptions: {
+        sourceType: "module",
+        ecmaVersion: "latest",
+      },
+    },
+  },
+
+  // Next.js ignores
+  globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts"]),
+]);
+```
+
+### 3. Enable ESLint Fix + Prettier + Auto-Save in VS Code
+
+Open:
+Cmd + Shift + P → “Open Settings (JSON)”
+
+Add:
+
+```json
+"editor.codeActionsOnSave": {
+  "source.organizeImports": "never",
+  "source.fixAll.eslint": "explicit"
+},
+"editor.formatOnSave": true,
+"eslint.validate": [
+  "javascript",
+  "javascriptreact",
+  "typescript",
+  "typescriptreact"
+],
+"files.autoSave": "afterDelay",
+"files.autoSaveDelay": 500
+```
