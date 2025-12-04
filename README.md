@@ -110,3 +110,61 @@ Add:
 "files.autoSave": "afterDelay",
 "files.autoSaveDelay": 500
 ```
+
+```
+
+```
+
+## Dynamic Routes [B]
+
+In Next.js 15 / App Router, params is now async, meaning:
+
+### ✅ params is a Promise, not a plain object.
+
+That’s why you get:
+
+params is a Promise and must be unwrapped
+
+⸻
+
+### ✅ How to fix it
+
+You must make your page component async and await params:
+
+```tsx
+type TicketPageProps = {
+  params: Promise<{
+    ticketId: string;
+  }>;
+};
+
+const TicketPage = async ({ params }: TicketPageProps) => {
+  const { ticketId } = await params;
+
+  return (
+    <div>
+      <h1 className="text-6xl">Ticket {ticketId}</h1>
+    </div>
+  );
+};
+
+export default TicketPage;
+```
+
+🧠 Why did Next.js change this?
+
+In Next.js 15:
+• params, searchParams, cookies, headers
+• are now async to allow streaming + server-first routing.
+
+So every dynamic route must now use:
+
+```tsx
+const Page = async ({ params }) => {
+  const { slug } = await params;
+};
+```
+
+```
+
+```
