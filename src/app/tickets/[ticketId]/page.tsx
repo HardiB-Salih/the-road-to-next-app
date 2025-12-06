@@ -1,4 +1,6 @@
+import Placeholder from "@/components/placeholder";
 import { getTicketById } from "@/data";
+import TicketItem from "@/features/ticket/components/ticket-item";
 
 type TicketPageProps = {
   params: Promise<{
@@ -10,16 +12,12 @@ const TicketPage = async ({ params }: TicketPageProps) => {
   const { ticketId } = await params;
   const ticket = getTicketById(ticketId);
   if (!ticket) {
-    return <div>Ticket not found</div>;
+    return <Placeholder lable="Ticket not found" />;
   }
 
   return (
-    <div>
-      <h1 className="text-6xl">
-        {ticket.title} {ticket.id}
-      </h1>
-      <h2 className="text-4xl">{ticket.status}</h2>
-      <p className="text-2xl">{ticket.description}</p>
+    <div className="animate-fade-in-from-top flex justify-center">
+      <TicketItem ticket={ticket} isDetail />
     </div>
   );
 };

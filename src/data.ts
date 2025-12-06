@@ -1,9 +1,4 @@
-type Ticket = {
-  id: string;
-  title: string;
-  description: string;
-  status: "OPEN" | "IN_PROGRESS" | "CLOSE";
-};
+import { Ticket } from "./features/ticket/components/types";
 
 const initialTickets: Ticket[] = [
   {
