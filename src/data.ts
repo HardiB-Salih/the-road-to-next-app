@@ -1,6 +1,6 @@
-import { Ticket } from "./features/ticket/components/types";
+import { Ticket } from "./features/ticket/types";
 
-const initialTickets: Ticket[] = [
+export const initialTickets: Ticket[] = [
   {
     id: "1",
     title: "Login Issue",
