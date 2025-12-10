@@ -4,17 +4,6 @@ import { getTickets } from "@/features/ticket/queries/get-tickets";
 
 const TicketsPage = async () => {
   const tickets = await getTickets();
-
-  // const [tickets, setTickets] = useState<Ticket[]>([]);
-
-  // useEffect(() => {
-  //   const fetchTickets = async () => {
-  //     const result = await getTickets();
-  //     setTickets(result);
-  //   };
-
-  //   fetchTickets();
-  // }, []);
   return (
     <div className="flex flex-1 flex-col gap-y-8">
       <Heading

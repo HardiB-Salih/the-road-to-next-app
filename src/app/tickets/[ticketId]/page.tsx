@@ -1,6 +1,6 @@
 import Placeholder from "@/components/placeholder";
-import { getTicketById } from "@/data";
 import TicketItem from "@/features/ticket/components/ticket-item";
+import { getTicket } from "@/features/ticket/queries/get-ticket";
 
 type TicketPageProps = {
   params: Promise<{
@@ -10,7 +10,7 @@ type TicketPageProps = {
 
 const TicketPage = async ({ params }: TicketPageProps) => {
   const { ticketId } = await params;
-  const ticket = getTicketById(ticketId);
+  const ticket = await getTicket(ticketId);
   if (!ticket) {
     return <Placeholder lable="Ticket not found" />;
   }
